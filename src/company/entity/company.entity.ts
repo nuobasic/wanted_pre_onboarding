@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { PostingEntity } from "../../posting/entity/posting.entity";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('company')
 export class CompanyEntity extends BaseEntity{
@@ -15,4 +16,6 @@ export class CompanyEntity extends BaseEntity{
     @Column()
     region: string
 
+    @OneToMany(()=> PostingEntity, (posting) =>posting.company)
+    postings: PostingEntity[]
 }
