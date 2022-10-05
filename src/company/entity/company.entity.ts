@@ -5,21 +5,12 @@ export class CompanyEntity extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id: number
-    
+
     @Column()
     name: string
 
     @Column()
-    position: string
-
-    @Column()
-    compensation: number
-
-    @Column()
-    content: string
-
-    @Column()
-    skil: string
+    country: string
 
     @Column()
     region: string

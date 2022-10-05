@@ -15,11 +15,8 @@ export class CompanyService {
 
 async register(compnayRequest: CompnayRequest){
    const company = await this.companyRepository.create({
-    position: compnayRequest.position,
+    country: compnayRequest.country,
     name: compnayRequest.name,
-    compensation:  compnayRequest.compensation,
-    content: compnayRequest.content,
-    skil: compnayRequest.skil,
     region: compnayRequest.region
    })
    return this.companyRepository.save(company)
@@ -32,12 +29,10 @@ async update(id: number, compnayEntity: CompanyEntity): Promise<void>{
             .createQueryBuilder()
             .update(CompanyEntity)
             .set({
-                position: compnayEntity.position,
+                country: compnayEntity.country,
                 name: compnayEntity.name,
-                compensation: compnayEntity.compensation,
-                content: compnayEntity.content,
-                skil: compnayEntity.skil,
-                region: compnayEntity.region
+                region: compnayEntity.region,
+                
             })
             .where("id= :id",{id})
             .execute()
