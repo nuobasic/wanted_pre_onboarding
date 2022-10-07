@@ -31,7 +31,19 @@ export class UserService {
         const result = await this.userRepository.save(user)
 
         return result
+    }
 
+    async logIn(userRequest: UserRequest){
+        const{email, password, role} = userRequest
+
+        const user = await this.userRepository.findOne({where: {email}})
+
+        if(user && (await bcrypt.compare(password, user.password))){
+            return 'login success'
+        }
+        else{
+            throw new UnauthorizedException('login failed')
+        }
 
     }
 }

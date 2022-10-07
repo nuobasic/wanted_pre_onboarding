@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable ,UnauthorizedException, NotFoundException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { cp } from 'fs';
 import { number } from 'joi';
@@ -45,6 +45,16 @@ async deleteCompany(id: number): Promise<void>{
 
 async allCompany(){
     return this.companyRepository.find()
+}
+
+async findCompany(id: number){
+    const company =  await this.companyRepository.findOne({where: {id}})
+
+    if(!company){
+        throw new NotFoundException(`Company (id: ${id}) was not found.`);
+    }
+
+    return company
 }
 
 }

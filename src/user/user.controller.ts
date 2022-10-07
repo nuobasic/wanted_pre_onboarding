@@ -12,4 +12,9 @@ export class UserController {
     async signup(@Body() userrequest: UserRequest) {
         return await this.userService.signup(userrequest)
     }
+
+    @Post('login')
+    async logIn(@Body() userRequest: UserRequest) {
+        return await this.userService.logIn(userRequest)
+    }
 }
