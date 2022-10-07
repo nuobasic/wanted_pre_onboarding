@@ -4,12 +4,14 @@ import { UserEntity } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { UserRequest } from './dto/user.request.dto';
 import * as bcrypt from 'bcrypt'
+import { JwtService } from '@nestjs/jwt/dist';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserEntity)
-        private userRepository: Repository<UserEntity>
+        private userRepository: Repository<UserEntity>,
+        private jwtService: JwtService
     ){}
 
     async signup (userRequest: UserRequest) {
@@ -39,7 +41,12 @@ export class UserService {
         const user = await this.userRepository.findOne({where: {email}})
 
         if(user && (await bcrypt.compare(password, user.password))){
-            return 'login success'
+            //유저 토큰 생성( Secreat + Paylod)
+            const payload= {email, role} //payload 에는 중요 정보x 
+            const accessToken = await this.jwtService.sign(payload)
+
+
+            return {accessToken}
         }
         else{
             throw new UnauthorizedException('login failed')
