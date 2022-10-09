@@ -2,6 +2,7 @@ import { Injectable ,UnauthorizedException, NotFoundException} from '@nestjs/com
 import { InjectRepository } from '@nestjs/typeorm';
 import { cp } from 'fs';
 import { number } from 'joi';
+import { UserEntity } from 'src/user/entity/user.entity';
 import { getConnection, Repository } from 'typeorm';
 import { CompnayRequest } from './dto/company.request.dto';
 import { CompanyEntity } from './entity/company.entity';
@@ -14,11 +15,14 @@ export class CompanyService {
 ){}
 
 async register(compnayRequest: CompnayRequest){
+  
    const company = await this.companyRepository.create({
     country: compnayRequest.country,
     name: compnayRequest.name,
-    region: compnayRequest.region
+    region: compnayRequest.region,
+    
    })
+   
    return this.companyRepository.save(company)
 }
 

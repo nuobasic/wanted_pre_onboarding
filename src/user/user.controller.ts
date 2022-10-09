@@ -1,8 +1,9 @@
 import { Body, Controller, Post ,Req, UseGuards} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from './decorator/user.decorator';
+import { GetUser, Roles } from './decorator/user.decorator';
 import { UserRequest } from './dto/user.request.dto';
 import { UserEntity } from './entity/user.entity';
+import { Role } from './entity/user.role';
 import { UserService } from './user.service';
 
 @Controller('user')

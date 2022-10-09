@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CompanyService } from '../company/company.service';
 import { CompanyEntity } from 'src/company/entity/company.entity';
 import { Repository } from 'typeorm';
 import { PostingRequest } from './dto/posting.request.dto';
@@ -10,11 +11,52 @@ export class PostingService {
     constructor(
         @InjectRepository(PostingEntity)
         private postingRepository: Repository<PostingEntity>,
+        private companyService: CompanyService
        
     ){}
 
-    async postingRegister(compnay: CompanyEntity, postingrequet: PostingRequest){
+    async postingRegister( postingrequet: PostingRequest){
+        const company = await this. companyService.findCompany(postingrequet.companyId)
 
+        if(!company){
+            throw new UnauthorizedException('회사가 존재하지 않습니다.')
+        }
 
+        const posting = await this.postingRepository.create({
+            company,
+            position: postingrequet.position,
+            compensation: postingrequet.compensation,
+            content: postingrequet.content,
+            skil: postingrequet.skil
+
+        })
+        return this.postingRepository.save(posting)
+
+    }
+
+    async postingUpdate(id: number, postingEntity:PostingEntity): Promise<void>{
+        const exitedPosting = await this.postingRepository.findOne({where: {id}})
+
+        if(exitedPosting){
+            await PostingEntity
+                .createQueryBuilder()
+                .update(PostingEntity)
+                .set({
+                    position: postingEntity.position,
+                    compensation: postingEntity.compensation,
+                    content: postingEntity.content,
+                    skil: postingEntity.skil
+                })
+                .where("id=:id",{id})
+                .execute()
+        }
+    }
+
+    async deletePosting(id: number) :Promise<void>{
+        await this.postingRepository.delete(id)
+    }
+
+    async allPosting(){
+        return this.postingRepository.find()
     }
 }

@@ -1,14 +1,19 @@
-import { Body, Controller, Param, Post, Put, Delete, Get } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, Delete, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { UserEntity } from '../user/entity/user.entity';
+import { GetUser, Roles } from '../user/decorator/user.decorator';
 import { CompanyService } from './company.service';
 import { CompnayRequest } from './dto/company.request.dto';
 import { CompanyEntity } from './entity/company.entity';
+import { Role } from '../user/entity/user.role';
 
 @Controller('company')
 export class CompanyController {
     constructor(private readonly companyService: CompanyService){}
 
     @Post('register')
-    async register(@Body() companyRequest: CompnayRequest){
+    async register(@Body() companyRequest: CompnayRequest,
+    ): Promise<CompanyEntity>{
         return await this.companyService.register(companyRequest)
     }
 
