@@ -10,6 +10,7 @@ import { CompanyModule } from './company/company.module';
 import { CompanyEntity } from './company/entity/company.entity';
 import { PostingModule } from './posting/posting.module';
 import { PostingEntity } from './posting/entity/posting.entity';
+import { DataSource } from 'typeorm';
 
 @Module({
   imports: [
@@ -31,4 +32,6 @@ import { PostingEntity } from './posting/entity/posting.entity';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}

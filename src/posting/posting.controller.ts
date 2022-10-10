@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param, Delete,Get } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Delete,Get, Query } from '@nestjs/common';
 import { PostingRequest } from './dto/posting.request.dto';
 import { PostingEntity } from './entity/posting.entity';
 import { PostingService } from './posting.service';
@@ -28,5 +28,10 @@ export class PostingController {
     @Get()
     async allPosting(){
         return this.postingServece.allPosting()
+    }
+
+    @Get('search')
+    async searchPosting(@Query('search') search: string){
+        return this.postingServece.searchPosting(search)
     }
 }

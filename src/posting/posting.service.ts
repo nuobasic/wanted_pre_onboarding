@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyService } from '../company/company.service';
 import { CompanyEntity } from 'src/company/entity/company.entity';
-import { Repository } from 'typeorm';
+import { Repository, DataSource  } from 'typeorm';
 import { PostingRequest } from './dto/posting.request.dto';
 import { PostingEntity } from './entity/posting.entity';
 
@@ -11,7 +11,8 @@ export class PostingService {
     constructor(
         @InjectRepository(PostingEntity)
         private postingRepository: Repository<PostingEntity>,
-        private companyService: CompanyService
+        private companyService: CompanyService,
+        private dataSource: DataSource
        
     ){}
 
@@ -58,5 +59,24 @@ export class PostingService {
 
     async allPosting(){
         return this.postingRepository.find()
+    }
+
+    async searchPosting(search: string){
+        return await this.postingRepository
+            .createQueryBuilder('posting')
+            .leftJoinAndSelect('posting.company', 'company')
+            .where("company.name like :name",{name: search})
+            .select([
+                'posting.id',
+                'posting.position',
+                'posting.compensation',
+                'posting.content',
+                'posting.skil',
+                'company.name',
+                'company.country',
+                'company.region'
+            ])
+            .getMany()
+   
     }
 }
