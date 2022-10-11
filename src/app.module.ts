@@ -11,6 +11,8 @@ import { CompanyEntity } from './company/entity/company.entity';
 import { PostingModule } from './posting/posting.module';
 import { PostingEntity } from './posting/entity/posting.entity';
 import { DataSource } from 'typeorm';
+import { ApplyModule } from './apply/apply.module';
+import { ApplyEntity } from './apply/entity/apply.entity';
 
 @Module({
   imports: [
@@ -22,13 +24,14 @@ import { DataSource } from 'typeorm';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASES,
-      entities: [UserEntity, CompanyEntity, PostingEntity],
+      entities: [UserEntity, CompanyEntity, PostingEntity, ApplyEntity],
       synchronize: true,
       logging: true,
     }),
     UserModule,
     CompanyModule,
-    PostingModule,],
+    PostingModule,
+    ApplyModule,],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -9,6 +9,6 @@ import { CompanyModule } from '../company/company.module';
   imports:[TypeOrmModule.forFeature([PostingEntity]), CompanyModule],
   providers: [PostingService],
   controllers: [PostingController],
-  exports:[PostingService]
+  exports:[PostingService, PostingModule]
 })
 export class PostingModule {}
