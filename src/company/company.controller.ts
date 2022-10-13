@@ -8,12 +8,15 @@ import { CompanyEntity } from './entity/company.entity';
 import { Role } from '../user/entity/user.role';
 
 @Controller('company')
+
 export class CompanyController {
     constructor(private readonly companyService: CompanyService){}
 
     @Post('register')
+    
     async register(@Body() companyRequest: CompnayRequest,
-    ): Promise<CompanyEntity>{
+    
+    ){
         return await this.companyService.register(companyRequest)
     }
 

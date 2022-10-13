@@ -79,4 +79,14 @@ export class PostingService {
             .getMany()
    
     }
+
+    async findOnePosting(id: number){
+        const posting = await this.postingRepository.findOne({where: {id}})
+
+        if(!posting){
+            throw new UnauthorizedException('공고가 없습니다')
+        }
+        
+        return posting
+    }
 }

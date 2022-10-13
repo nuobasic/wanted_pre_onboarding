@@ -21,6 +21,7 @@ async register(compnayRequest: CompnayRequest){
     name: compnayRequest.name,
     region: compnayRequest.region,
     
+    
    })
    
    return this.companyRepository.save(company)

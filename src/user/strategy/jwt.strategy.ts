@@ -14,7 +14,7 @@ import { JwtPayload } from "./jwtPayload";
         private userRepositoyr: Repository<UserEntity>
     ){
         super({
-            secretOrKey: 'secret', // token 이 유효한지 체크, token 생성할때 사용한 것과 같아야함
+            secretOrKey: process.env.JWT_SECRET_KEY, // token 이 유효한지 체크, token 생성할때 사용한 것과 같아야함
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 
 

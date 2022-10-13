@@ -34,4 +34,9 @@ export class PostingController {
     async searchPosting(@Query('search') search: string){
         return this.postingServece.searchPosting(search)
     }
+
+    @Get(':id')
+    async findOne(@Param('id') id :number){
+        return await this.postingServece.findOnePosting(id)
+    }
 }
