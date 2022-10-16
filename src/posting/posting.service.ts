@@ -58,7 +58,19 @@ export class PostingService {
     }
 
     async allPosting(){
-        return this.postingRepository.find()
+        return await this.postingRepository
+            .createQueryBuilder('posting')
+            .leftJoinAndSelect('posting.company','company')
+            .select([
+                'posting.id',
+                'posting.position',
+                'posting.compensation',
+                'posting.skil',
+                'company.name',
+                'company.country',
+                'company.region'
+            ])
+            .getMany()
     }
 
     async searchPosting(search: string){
@@ -87,6 +99,19 @@ export class PostingService {
             throw new UnauthorizedException('공고가 없습니다')
         }
         
-        return posting
+        return await this.postingRepository
+            .createQueryBuilder('posting')
+            .leftJoinAndSelect('posting.company','company')
+            .select([
+                'posting.id',
+                'posting.position',
+                'posting.compensation',
+                'posting.content',
+                'posting.skil',
+                'company.name',
+                'company.country',
+                'company.region'
+            ])
+            .getOne()
     }
 }
