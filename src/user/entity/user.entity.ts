@@ -25,7 +25,7 @@ export class UserEntity extends BaseEntity{
     companys: CompanyEntity[]
 
     @OneToMany(()=> ApplyEntity, (apply)=>apply.user)
-    apply: ApplyEntity
+    apply: ApplyEntity[]
 
 
 }

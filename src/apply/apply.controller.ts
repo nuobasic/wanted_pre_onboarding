@@ -12,7 +12,7 @@ export class ApplyController {
     ){}
 
     @Post('enrol')
-    async applyEnrol(@Body() applyRequest: ApplyRequest): Promise<ApplyEntity>{
+    async applyEnrol(@Body() applyRequest: ApplyRequest){
         return await this.applyService.applyPosting(applyRequest)
     }
 
