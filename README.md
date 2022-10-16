@@ -2,11 +2,9 @@
 
 원티드 프리온 보딩 5차 선발과제
 
-## Installation
-
-```bash
-$ npm install
-```
+## Tech
+  *NodeJS(NestJs)
+  *MYSQL(TypeOrm)
 
 ## Running the app
 
