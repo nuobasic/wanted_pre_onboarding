@@ -25,4 +25,7 @@ export class PostingEntity extends BaseEntity{
 
     @ManyToOne(()=>ApplyEntity, (apply)=>apply.posting)
     apply:ApplyEntity
+
+    @Column()
+    postingCount: number
 }
