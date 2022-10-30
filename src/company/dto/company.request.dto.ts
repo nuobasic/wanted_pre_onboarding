@@ -1,8 +1,11 @@
-export class CompnayRequest{
+import { UserEntity } from "src/user/entity/user.entity";
 
-    name: string
-    
-    country: string
-    
-    region: string
+export class CompnayRequest {
+  name: string;
+
+  country: string;
+
+  region: string;
+
+  user: UserEntity;
 }
